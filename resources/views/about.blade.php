@@ -19,12 +19,11 @@
         <div class="container mx-auto max-w-5xl">
             <div class="flex flex-col md:flex-row gap-12 lg:gap-20 items-center">
                 <div class="w-full md:w-1/2">
-                    <!-- Placeholder for Image -->
-                    <div class="aspect-[3/4] bg-gray-100 rounded-[3rem] overflow-hidden relative shadow-lg">
-                        <div
-                            class="absolute inset-0 flex items-center justify-center text-gray-400 font-light uppercase tracking-widest text-center p-4">
-                            Leticia Portrait Placeholder
-                        </div>
+                    <!-- Leticia Portrait -->
+                    <div class="aspect-[3/4] rounded-[3rem] overflow-hidden relative shadow-lg group">
+                        <img src="{{ asset('images/leticia-about.png') }}" alt="Leticia D. Jones"
+                            class="w-full h-full object-cover transition duration-700 group-hover:scale-105">
+                        <div class="absolute inset-0 ring-1 ring-inset ring-black/10 rounded-[3rem]"></div>
                     </div>
                 </div>
                 <div class="w-full md:w-1/2">

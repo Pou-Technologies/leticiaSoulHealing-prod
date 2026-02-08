@@ -117,11 +117,12 @@
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-                    <!-- Service Item -->
+                    <!-- Service Item: Reiki Certification -->
                     <div class="relative group overflow-hidden rounded-3xl shadow-lg h-80">
-                        <!-- Placeholder Background -->
-                        <div
-                            class="absolute inset-0 bg-gray-800 bg-opacity-40 group-hover:bg-opacity-30 transition duration-500">
+                        <!-- Use local image to ensure loading -->
+                        <img src="{{ asset('images/reiki-service.jpg') }}" alt="Reiki Healing Hands"
+                            class="absolute inset-0 w-full h-full object-cover transition duration-700 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gray-900/50 group-hover:bg-gray-900/40 transition duration-500">
                         </div>
                         <div
                             class="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent opacity-90">
@@ -132,21 +133,29 @@
                             </p>
                         </div>
                     </div>
-                    <!-- Service Item -->
+
+                    <!-- Service Item: Retreats & Workshops -->
                     <div class="relative group overflow-hidden rounded-3xl shadow-lg h-80">
-                        <!-- Placeholder Background -->
-                        <div class="absolute inset-0 bg-brand-teal bg-opacity-90 transition duration-500"></div>
-                        <div class="absolute inset-0 flex flex-col items-center justify-center p-8 text-center">
+                        <img src="https://images.unsplash.com/photo-1545389336-cf090694435e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                            alt="Yoga Retreat Nature"
+                            class="absolute inset-0 w-full h-full object-cover transition duration-700 group-hover:scale-110">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent opacity-90">
+                        </div>
+                        <div class="absolute inset-0 flex flex-col items-center justify-center p-8 text-center z-10">
                             <h3 class="text-2xl font-serif text-white mb-2">Retreats & Workshops</h3>
-                            <p class="text-white/80 font-light">Immersive experiences for deep renewal and soul discovery.
+                            <p class="text-white/90 font-light">Immersive experiences for deep renewal and soul discovery.
                             </p>
                         </div>
                     </div>
-                    <!-- Service Item -->
+
+                    <!-- Service Item: Public Speaking -->
                     <div class="relative group overflow-hidden rounded-3xl shadow-lg h-80">
-                        <!-- Placeholder Background -->
+                        <img src="https://images.unsplash.com/photo-1544928147-79a2dbc1f389?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                            alt="Public Speaking Event"
+                            class="absolute inset-0 w-full h-full object-cover transition duration-700 group-hover:scale-110">
                         <div
-                            class="absolute inset-0 bg-gray-800 bg-opacity-40 group-hover:bg-opacity-30 transition duration-500">
+                            class="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent opacity-90">
                         </div>
                         <div
                             class="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent opacity-90">

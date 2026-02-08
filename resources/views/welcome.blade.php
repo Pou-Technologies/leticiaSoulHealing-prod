@@ -137,8 +137,37 @@
     </section>
 
     <!-- Section 4: The Quote Break -->
-    <section class="py-32 md:py-48 px-6 bg-white border-t border-gray-50">
-        <div class="container mx-auto max-w-5xl text-center">
+    <section class="py-32 md:py-48 px-6 bg-white border-t border-gray-50 relative overflow-hidden">
+        <div class="container mx-auto max-w-5xl text-center relative z-10">
+            <!-- Mandala Background (Centered within Container) -->
+            <div
+                class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] opacity-20 pointer-events-none -z-10">
+                <svg viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
+                    <circle cx="400" cy="400" r="300" fill="none" stroke="#d4af37" stroke-width="2" opacity="0.3" />
+                    <circle cx="400" cy="400" r="250" fill="none" stroke="#d4af37" stroke-width="1.5" opacity="0.4" />
+                    <g transform="translate(400,400)">
+                        <circle r="150" fill="none" stroke="#2da4a2" stroke-width="2" opacity="0.5" />
+                        <circle r="100" fill="none" stroke="#2da4a2" stroke-width="1.5" opacity="0.6" />
+                        <!-- Mandala Petals -->
+                        <path d="M0 -140 Q 60 -70 0 0 Q -60 -70 0 -140" fill="none" stroke="#d4af37" stroke-width="2"
+                            transform="rotate(0)" opacity="0.8" />
+                        <path d="M0 -140 Q 60 -70 0 0 Q -60 -70 0 -140" fill="none" stroke="#d4af37" stroke-width="2"
+                            transform="rotate(45)" opacity="0.8" />
+                        <path d="M0 -140 Q 60 -70 0 0 Q -60 -70 0 -140" fill="none" stroke="#d4af37" stroke-width="2"
+                            transform="rotate(90)" opacity="0.8" />
+                        <path d="M0 -140 Q 60 -70 0 0 Q -60 -70 0 -140" fill="none" stroke="#d4af37" stroke-width="2"
+                            transform="rotate(135)" opacity="0.8" />
+                        <path d="M0 -140 Q 60 -70 0 0 Q -60 -70 0 -140" fill="none" stroke="#d4af37" stroke-width="2"
+                            transform="rotate(180)" opacity="0.8" />
+                        <path d="M0 -140 Q 60 -70 0 0 Q -60 -70 0 -140" fill="none" stroke="#d4af37" stroke-width="2"
+                            transform="rotate(225)" opacity="0.8" />
+                        <path d="M0 -140 Q 60 -70 0 0 Q -60 -70 0 -140" fill="none" stroke="#d4af37" stroke-width="2"
+                            transform="rotate(270)" opacity="0.8" />
+                        <path d="M0 -140 Q 60 -70 0 0 Q -60 -70 0 -140" fill="none" stroke="#d4af37" stroke-width="2"
+                            transform="rotate(315)" opacity="0.8" />
+                    </g>
+                </svg>
+            </div>
             <blockquote class="relative">
                 <svg class="w-16 h-16 text-brand-teal/20 absolute -top-10 -left-10" fill="currentColor" viewBox="0 0 24 24">
                     <path
@@ -190,11 +219,11 @@
                 </div>
 
                 <!-- Image Placeholder (Right) -->
-                <div
-                    class="w-full md:w-1/2 relative h-[500px] bg-gray-100 rounded-[3rem] overflow-hidden flex items-center justify-center border border-gray-200">
-                    <span class="text-gray-400 font-light uppercase tracking-widest">Leticia's Photo Placeholder</span>
-                    <!-- Uncomment when photo is available -->
-                    <!-- <img src="{{ asset('images/leticia-profile.jpg') }}" alt="Leticia" class="w-full h-full object-cover"> -->
+                <!-- Image (Right) -->
+                <div class="w-full md:w-1/2 relative h-[500px] rounded-[3rem] overflow-hidden shadow-2xl group">
+                    <img src="{{ asset('images/hero.jpg') }}" alt="Leticia D. Jones"
+                        class="w-full h-full object-cover transform group-hover:scale-105 transition duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none"></div>
                 </div>
             </div>
         </div>
@@ -202,36 +231,36 @@
 
     <!-- Section 5: Testimonials -->
     <section class="py-32 md:py-40 px-6 bg-gray-50" x-data="{
-            active: 0,
-            testimonials: [
-                {
-                    text: 'I am a mother and a professional. After seeing Leticia for over 13 years, I always go back to her because her assertive intuitive, gentle spiritual and holistic approach which has helped me immensely through out my personal and professional path.',
-                    author: 'Carmen B.'
-                },
-                {
-                    text: 'If you want a beautiful soul to guide you, Leticia is your guide.',
-                    author: 'Patrick ND.'
-                },
-                {
-                    text: 'Thank you, Leticia, because your beautiful therapy brought me out of my comfort zone which led me to resolve a situation that needed my attention regarding my marriage. I felt like I was crossing a threshold into a peaceful and clear mind to decide what I really wanted to do.',
-                    author: 'Mary Z.'
-                },
-                {
-                    text: 'At Soul Healing with Leticia you can gently and intuitively be guided into your soul (ah!, I guess hence the name). Once there, she also provides the environment for healing to happen, every time the issue at hand that needs it most. Thank you Leticia for your most needed and important service.',
-                    author: 'Leal E.'
-                },
-                {
-                    text: 'Leticia, thank you so much! Reiki and Reflexology have been wonderful therapies. You helped to balance my digestion problems and, most important to find inner peace and calm. I think everybody should have a session for indulging the mind and body.',
-                    author: 'Maria.'
-                }
-            ],
-            next() {
-                this.active = (this.active + 1) % this.testimonials.length;
-            },
-            prev() {
-                this.active = (this.active - 1 + this.testimonials.length) % this.testimonials.length;
-            }
-        }">
+                                    active: 0,
+                                    testimonials: [
+                                        {
+                                            text: 'I am a mother and a professional. After seeing Leticia for over 13 years, I always go back to her because her assertive intuitive, gentle spiritual and holistic approach which has helped me immensely through out my personal and professional path.',
+                                            author: 'Carmen B.'
+                                        },
+                                        {
+                                            text: 'If you want a beautiful soul to guide you, Leticia is your guide.',
+                                            author: 'Patrick ND.'
+                                        },
+                                        {
+                                            text: 'Thank you, Leticia, because your beautiful therapy brought me out of my comfort zone which led me to resolve a situation that needed my attention regarding my marriage. I felt like I was crossing a threshold into a peaceful and clear mind to decide what I really wanted to do.',
+                                            author: 'Mary Z.'
+                                        },
+                                        {
+                                            text: 'At Soul Healing with Leticia you can gently and intuitively be guided into your soul (ah!, I guess hence the name). Once there, she also provides the environment for healing to happen, every time the issue at hand that needs it most. Thank you Leticia for your most needed and important service.',
+                                            author: 'Leal E.'
+                                        },
+                                        {
+                                            text: 'Leticia, thank you so much! Reiki and Reflexology have been wonderful therapies. You helped to balance my digestion problems and, most important to find inner peace and calm. I think everybody should have a session for indulging the mind and body.',
+                                            author: 'Maria.'
+                                        }
+                                    ],
+                                    next() {
+                                        this.active = (this.active + 1) % this.testimonials.length;
+                                    },
+                                    prev() {
+                                        this.active = (this.active - 1 + this.testimonials.length) % this.testimonials.length;
+                                    }
+                                }">
         <div class="container mx-auto max-w-6xl">
             <div class="text-center mb-16">
                 <h2 class="text-3xl md:text-4xl font-light text-gray-900 mb-4 italic font-serif">Voices of Healing</h2>

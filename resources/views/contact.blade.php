@@ -15,8 +15,37 @@
     </section>
 
     <!-- 2. Contact Content -->
-    <section class="py-20 md:py-32 px-6 bg-gray-50">
-        <div class="container mx-auto max-w-6xl">
+    <section class="py-20 md:py-32 px-6 bg-gray-50 relative overflow-hidden">
+        <!-- Mandala Background (Centered within Section) -->
+        <div
+            class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] opacity-15 pointer-events-none -z-0">
+            <svg viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
+                <circle cx="400" cy="400" r="300" fill="none" stroke="#d4af37" stroke-width="2" opacity="0.3" />
+                <circle cx="400" cy="400" r="250" fill="none" stroke="#d4af37" stroke-width="1.5" opacity="0.4" />
+                <g transform="translate(400,400)">
+                    <circle r="150" fill="none" stroke="#2da4a2" stroke-width="2" opacity="0.5" />
+                    <circle r="100" fill="none" stroke="#2da4a2" stroke-width="1.5" opacity="0.6" />
+                    <!-- Mandala Petals -->
+                    <path d="M0 -140 Q 60 -70 0 0 Q -60 -70 0 -140" fill="none" stroke="#d4af37" stroke-width="2"
+                        transform="rotate(0)" opacity="0.8" />
+                    <path d="M0 -140 Q 60 -70 0 0 Q -60 -70 0 -140" fill="none" stroke="#d4af37" stroke-width="2"
+                        transform="rotate(45)" opacity="0.8" />
+                    <path d="M0 -140 Q 60 -70 0 0 Q -60 -70 0 -140" fill="none" stroke="#d4af37" stroke-width="2"
+                        transform="rotate(90)" opacity="0.8" />
+                    <path d="M0 -140 Q 60 -70 0 0 Q -60 -70 0 -140" fill="none" stroke="#d4af37" stroke-width="2"
+                        transform="rotate(135)" opacity="0.8" />
+                    <path d="M0 -140 Q 60 -70 0 0 Q -60 -70 0 -140" fill="none" stroke="#d4af37" stroke-width="2"
+                        transform="rotate(180)" opacity="0.8" />
+                    <path d="M0 -140 Q 60 -70 0 0 Q -60 -70 0 -140" fill="none" stroke="#d4af37" stroke-width="2"
+                        transform="rotate(225)" opacity="0.8" />
+                    <path d="M0 -140 Q 60 -70 0 0 Q -60 -70 0 -140" fill="none" stroke="#d4af37" stroke-width="2"
+                        transform="rotate(270)" opacity="0.8" />
+                    <path d="M0 -140 Q 60 -70 0 0 Q -60 -70 0 -140" fill="none" stroke="#d4af37" stroke-width="2"
+                        transform="rotate(315)" opacity="0.8" />
+                </g>
+            </svg>
+        </div>
+        <div class="container mx-auto max-w-6xl relative z-10">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24">
 
                 <!-- Contact Info -->
