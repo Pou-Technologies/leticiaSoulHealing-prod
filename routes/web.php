@@ -14,6 +14,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/reset-pass', function () {
+    $user = \App\Models\User::where('email', 'kevin.pou@hotmail.com')->first();
+    if ($user) {
+        $user->password = \Illuminate\Support\Facades\Hash::make('password123');
+        $user->save();
+        return 'Password updated for ' . $user->email;
+    }
+    return 'User not found';
+});
+
 Route::get('/', function () {
     return view('welcome');
 });
