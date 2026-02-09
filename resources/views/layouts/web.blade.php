@@ -20,17 +20,19 @@
 <body class="font-sans text-gray-900 antialiased">
     <div class="min-h-screen flex flex-col">
         <!-- Navbar -->
-        <nav class="absolute top-0 left-0 w-full z-10 p-6">
-            <div class="container mx-auto flex justify-between items-center">
+        <nav class="absolute top-0 left-0 w-full z-50 p-6" x-data="{ open: false }">
+            <div class="container mx-auto flex justify-between items-center relative">
                 <!-- Logo -->
-                <div class="flex items-center">
+                <div class="flex items-center z-50">
                     <a href="{{ url('/') }}">
-                        <img src="{{ asset('images/logo.png') }}" alt="Leticia Soul Healing" class="h-20 w-auto">
+                        <img src="{{ asset('images/logo.png') }}" alt="Leticia Soul Healing"
+                            class="h-16 md:h-20 w-auto">
                     </a>
                 </div>
 
-                <!-- Navigation Links (Desktop) -->
-                <div class="hidden md:flex space-x-8 text-sm font-medium tracking-wide">
+                <!-- Desktop Navigation Links -->
+                <div
+                    class="hidden md:flex space-x-8 text-sm font-medium tracking-wide bg-white/80 backdrop-blur-sm px-8 py-3 rounded-full shadow-sm border border-white/50">
                     <a href="{{ route('about') }}" class="text-gray-700 hover:text-brand-teal transition">About</a>
                     <a href="{{ route('services') }}"
                         class="text-gray-700 hover:text-brand-teal transition">Services</a>
@@ -40,18 +42,69 @@
                     <a href="{{ route('blog') }}" class="text-gray-700 hover:text-brand-teal transition">Blog</a>
                     <a href="{{ route('contact') }}" class="text-gray-700 hover:text-brand-teal transition">Contact</a>
                 </div>
-                <div class="flex items-center space-x-4">
-                    @auth
-                        <a href="{{ url('/dashboard') }}"
-                            class="text-sm text-gray-700 hover:text-brand-teal transition">Dashboard</a>
-                    @else
-                        <a href="{{ route('login') }}" class="text-sm text-gray-700 hover:text-brand-teal transition">Log
-                            in</a>
-                        <a href="{{ route('register') }}"
-                            class="px-5 py-2 border border-brand-gold text-brand-gold rounded-full text-sm hover:bg-brand-gold hover:text-white transition duration-300">
-                            Join
-                        </a>
-                    @endauth
+
+                <!-- Auth & Mobile Toggle -->
+                <div class="flex items-center space-x-4 z-50">
+                    <!-- Desktop Auth -->
+                    <div class="hidden md:flex items-center space-x-4">
+                        @auth
+                            <a href="{{ url('/dashboard') }}"
+                                class="text-sm text-gray-700 hover:text-brand-teal transition">Dashboard</a>
+                        @else
+                            <a href="{{ route('login') }}"
+                                class="text-sm text-gray-700 hover:text-brand-teal transition">Log in</a>
+                            <a href="{{ route('register') }}"
+                                class="px-5 py-2 border border-brand-gold text-brand-gold rounded-full text-sm hover:bg-brand-gold hover:text-white transition duration-300">Join</a>
+                        @endauth
+                    </div>
+
+                    <!-- Mobile Hamburger Button -->
+                    <button @click="open = !open"
+                        class="md:hidden text-gray-700 hover:text-brand-teal focus:outline-none p-2 rounded-md bg-white/50 backdrop-blur-sm">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" x-show="!open">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" x-show="open"
+                            style="display: none;">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Menu Drawer -->
+            <div x-show="open" x-transition:enter="transition ease-out duration-200"
+                x-transition:enter-start="opacity-0 -translate-y-2" x-transition:enter-end="opacity-100 translate-y-0"
+                x-transition:leave="transition ease-in duration-150"
+                x-transition:leave-start="opacity-100 translate-y-0" x-transition:leave-end="opacity-0 -translate-y-2"
+                class="absolute top-full left-0 w-full bg-white shadow-lg border-t border-gray-100 md:hidden z-40 p-6 space-y-4"
+                style="display: none;" @click.away="open = false">
+
+                <div class="flex flex-col space-y-4 text-center">
+                    <a href="{{ route('about') }}"
+                        class="text-lg text-gray-700 hover:text-brand-teal font-medium py-2 border-b border-gray-50">About</a>
+                    <a href="{{ route('services') }}"
+                        class="text-lg text-gray-700 hover:text-brand-teal font-medium py-2 border-b border-gray-50">Services</a>
+                    <a href="{{ route('courses') }}"
+                        class="text-lg text-gray-700 hover:text-brand-teal font-medium py-2 border-b border-gray-50">Courses</a>
+                    <a href="{{ route('retreats') }}"
+                        class="text-lg text-gray-700 hover:text-brand-teal font-medium py-2 border-b border-gray-50">Retreats</a>
+                    <a href="{{ route('blog') }}"
+                        class="text-lg text-gray-700 hover:text-brand-teal font-medium py-2 border-b border-gray-50">Blog</a>
+                    <a href="{{ route('contact') }}"
+                        class="text-lg text-gray-700 hover:text-brand-teal font-medium py-2 border-b border-gray-50">Contact</a>
+
+                    <div class="pt-4 flex flex-col space-y-3">
+                        @auth
+                            <a href="{{ url('/dashboard') }}" class="text-brand-teal font-medium">Go to Dashboard</a>
+                        @else
+                            <a href="{{ route('login') }}" class="text-gray-600 font-medium">Log in</a>
+                            <a href="{{ route('register') }}"
+                                class="px-6 py-3 bg-brand-teal text-white rounded-full font-medium shadow-md">Join Now</a>
+                        @endauth
+                    </div>
                 </div>
             </div>
         </nav>
