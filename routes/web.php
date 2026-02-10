@@ -44,9 +44,7 @@ Route::get('/retreats', function () {
     return view('retreats');
 })->name('retreats');
 
-Route::get('/blog', function () {
-    return view('blog');
-})->name('blog');
+Route::get('/blog', [App\Http\Controllers\BlogController::class, 'index'])->name('blog');
 
 Route::get('/contact', function () {
     return view('contact');
