@@ -33,4 +33,29 @@ class BlogController extends Controller
 
         return view('blog', compact('posts'));
     }
+    public function show($slug)
+    {
+        // Cache individual post for 5 minutes
+        $post = Cache::remember("blog_post_{$slug}", 300, function () use ($slug) {
+            try {
+                $response = Http::withHeaders([
+                    'X-API-Key' => config('services.pou_saas.key'),
+                ])->get(config('services.pou_saas.url') . '/api/v1/blog/posts/' . $slug);
+
+                if ($response->successful()) {
+                    return $response->json('data', null);
+                }
+
+                return null;
+            } catch (\Exception $e) {
+                return null;
+            }
+        });
+
+        if (!$post) {
+            abort(404);
+        }
+
+        return view('blog-post', compact('post'));
+    }
 }
