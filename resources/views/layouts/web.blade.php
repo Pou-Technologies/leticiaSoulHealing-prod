@@ -181,15 +181,62 @@
 
                         <div class="bg-gray-800 p-6 rounded-2xl">
                             <h4 class="text-white mb-4 font-medium">Receive mindful insights</h4>
-                            <form class="space-y-3">
-                                <input type="email" placeholder="Your email"
+                            <form id="subscribe-form" class="space-y-3">
+                                <input type="text" id="sub-name" placeholder="Your name"
                                     class="w-full px-4 py-3 bg-gray-900 border border-gray-700 text-white rounded-lg focus:outline-none focus:border-brand-teal focus:ring-1 focus:ring-brand-teal text-sm">
-                                <button type="submit"
+                                <input type="email" id="sub-email" placeholder="Your email" required
+                                    class="w-full px-4 py-3 bg-gray-900 border border-gray-700 text-white rounded-lg focus:outline-none focus:border-brand-teal focus:ring-1 focus:ring-brand-teal text-sm">
+                                <button type="submit" id="sub-btn"
                                     class="w-full py-3 bg-brand-teal text-white rounded-lg font-medium hover:bg-opacity-90 transition text-sm uppercase tracking-wide">
                                     Subscribe
                                 </button>
                             </form>
+                            <p id="sub-msg" class="text-sm mt-3 hidden"></p>
                         </div>
+
+                        <script>
+                            document.getElementById('subscribe-form').addEventListener('submit', async function (e) {
+                                e.preventDefault();
+                                const btn = document.getElementById('sub-btn');
+                                const msg = document.getElementById('sub-msg');
+                                const name = document.getElementById('sub-name').value.trim();
+                                const email = document.getElementById('sub-email').value.trim();
+
+                                if (!email) return;
+
+                                btn.disabled = true;
+                                btn.textContent = 'Subscribing...';
+
+                                try {
+                                    const res = await fetch('{{ config("services.pou_saas.url") }}/api/v1/subscribers/add', {
+                                        method: 'POST',
+                                        headers: {
+                                            'Content-Type': 'application/json',
+                                            'X-API-Key': '{{ config("services.pou_saas.key") }}'
+                                        },
+                                        body: JSON.stringify({ name: name, email: email })
+                                    });
+
+                                    const data = await res.json();
+
+                                    if (data.success) {
+                                        msg.className = 'text-sm mt-3 text-brand-teal';
+                                        msg.textContent = '✓ Thank you for subscribing!';
+                                        this.reset();
+                                    } else {
+                                        msg.className = 'text-sm mt-3 text-red-400';
+                                        msg.textContent = data.message || 'Something went wrong.';
+                                    }
+                                } catch (err) {
+                                    msg.className = 'text-sm mt-3 text-red-400';
+                                    msg.textContent = 'Unable to subscribe. Please try again later.';
+                                }
+
+                                msg.classList.remove('hidden');
+                                btn.disabled = false;
+                                btn.textContent = 'Subscribe';
+                            });
+                        </script>
                     </div>
                 </div>
 
