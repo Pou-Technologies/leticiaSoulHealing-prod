@@ -53,9 +53,9 @@
                                     <span class="text-gray-400 text-xs uppercase tracking-wide">
                                         {{ \Carbon\Carbon::parse($post['created_at'])->format('M d, Y') }}
                                     </span>
-                                    <span class="text-brand-teal text-sm font-medium cursor-pointer hover:underline">
+                                    <a href="{{ route('blog.show', $post['slug']) }}" class="text-brand-teal text-sm font-medium cursor-pointer hover:underline">
                                         Read Article &rarr;
-                                    </span>
+                                    </a>
                                 </div>
                             </div>
                         </div>
