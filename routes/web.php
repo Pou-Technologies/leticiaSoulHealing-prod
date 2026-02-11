@@ -70,4 +70,24 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
+Route::post('/subscribe', function (\Illuminate\Http\Request $request) {
+    $request->validate([
+        'email' => 'required|email',
+        'name' => 'nullable|string|max:255',
+    ]);
+
+    try {
+        $response = \Illuminate\Support\Facades\Http::withHeaders([
+            'X-API-Key' => config('services.pou_saas.key'),
+        ])->post(config('services.pou_saas.url') . '/api/v1/subscribers/add', [
+                    'email' => $request->email,
+                    'name' => $request->name,
+                ]);
+
+        return response()->json($response->json(), $response->status());
+    } catch (\Exception $e) {
+        return response()->json(['success' => false, 'message' => 'Unable to subscribe. Please try again later.'], 500);
+    }
+})->name('subscribe');
+
 require __DIR__ . '/auth.php';

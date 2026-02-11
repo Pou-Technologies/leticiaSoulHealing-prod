@@ -208,11 +208,11 @@
                                 btn.textContent = 'Subscribing...';
 
                                 try {
-                                    const res = await fetch('{{ config("services.pou_saas.url") }}/api/v1/subscribers/add', {
+                                    const res = await fetch('{{ route("subscribe") }}', {
                                         method: 'POST',
                                         headers: {
                                             'Content-Type': 'application/json',
-                                            'X-API-Key': '{{ config("services.pou_saas.key") }}'
+                                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
                                         },
                                         body: JSON.stringify({ name: name, email: email })
                                     });
