@@ -225,7 +225,7 @@
                                         this.reset();
                                     } else {
                                         msg.className = 'text-sm mt-3 text-red-400';
-                                        msg.textContent = data.message || 'Something went wrong.';
+                                        msg.textContent = data.debug || data.message || 'Something went wrong.';
                                     }
                                 } catch (err) {
                                     msg.className = 'text-sm mt-3 text-red-400';

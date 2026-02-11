@@ -76,17 +76,32 @@ Route::post('/subscribe', function (\Illuminate\Http\Request $request) {
         'name' => 'nullable|string|max:255',
     ]);
 
+    $apiUrl = config('services.pou_saas.url');
+    $apiKey = config('services.pou_saas.key');
+
+    if (!$apiUrl || !$apiKey) {
+        \Illuminate\Support\Facades\Log::error('Subscribe: Missing POU_SAAS_URL or POU_SAAS_KEY in .env');
+        return response()->json(['success' => false, 'message' => 'Service not configured.'], 500);
+    }
+
     try {
-        $response = \Illuminate\Support\Facades\Http::withHeaders([
-            'X-API-Key' => config('services.pou_saas.key'),
-        ])->post(config('services.pou_saas.url') . '/api/v1/subscribers/add', [
+        $fullUrl = rtrim($apiUrl, '/') . '/api/v1/subscribers/add';
+
+        $response = \Illuminate\Support\Facades\Http::timeout(10)->withHeaders([
+            'X-API-Key' => $apiKey,
+        ])->post($fullUrl, [
                     'email' => $request->email,
                     'name' => $request->name,
                 ]);
 
         return response()->json($response->json(), $response->status());
     } catch (\Exception $e) {
-        return response()->json(['success' => false, 'message' => 'Unable to subscribe. Please try again later.'], 500);
+        \Illuminate\Support\Facades\Log::error('Subscribe error: ' . $e->getMessage());
+        return response()->json([
+            'success' => false,
+            'message' => 'Unable to subscribe. Please try again later.',
+            'debug' => $e->getMessage(), // Temporary: remove after debugging
+        ], 500);
     }
 })->name('subscribe');
 
