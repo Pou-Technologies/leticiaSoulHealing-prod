@@ -94,7 +94,19 @@ Route::post('/subscribe', function (\Illuminate\Http\Request $request) {
                     'name' => $request->name,
                 ]);
 
-        return response()->json($response->json(), $response->status());
+        $json = $response->json();
+
+        // If the API returned non-JSON (like an HTML error page), report it
+        if ($json === null) {
+            $body = substr($response->body(), 0, 300);
+            return response()->json([
+                'success' => false,
+                'message' => 'API returned status ' . $response->status(),
+                'debug' => $body,
+            ], 500);
+        }
+
+        return response()->json($json, $response->status());
     } catch (\Exception $e) {
         \Illuminate\Support\Facades\Log::error('Subscribe error: ' . $e->getMessage());
         return response()->json([
