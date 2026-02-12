@@ -125,6 +125,24 @@
                         </div>
                     @endif
 
+                    @if(session('error'))
+                        <div
+                            class="absolute inset-0 bg-white rounded-[2.5rem] z-10 flex flex-col items-center justify-center text-center p-12 animate-in fade-in duration-500">
+                            <div class="w-20 h-20 bg-red-50 rounded-full flex items-center justify-center mb-6">
+                                <svg class="w-10 h-10 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M6 18L18 6M6 6l12 12">
+                                    </path>
+                                </svg>
+                            </div>
+                            <h3 class="text-2xl font-serif text-gray-900 mb-4">Oops!</h3>
+                            <p class="text-gray-600 font-light leading-relaxed mb-8">
+                                {{ session('error') }}
+                            </p>
+                            <a href="{{ route('contact') }}" class="text-brand-teal font-medium hover:underline">Try again</a>
+                        </div>
+                    @endif
+
                     <h3 class="text-2xl font-serif text-gray-900 mb-8">Send a Message</h3>
 
                     <form action="{{ route('contact.submit') }}" method="POST" class="space-y-6">
