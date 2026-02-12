@@ -52,10 +52,42 @@ Route::get('/contact', function () {
 })->name('contact');
 
 Route::post('/contact', function (\Illuminate\Http\Request $request) {
-    // Logic to handle message (e.g., send email) goes here. 
-    // For now, we simulate success.
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'email' => 'required|email|max:255',
+        'message' => 'required|string',
+    ]);
 
-    return back()->with('success', 'Thank you! Your message has been sent. We will get back to you soon.');
+    $apiUrl = config('services.pou_saas.url');
+    $apiKey = config('services.pou_saas.key');
+
+    if (!$apiUrl || !$apiKey) {
+        \Illuminate\Support\Facades\Log::error('Contact form: Missing POU_SAAS_URL or POU_SAAS_API_KEY in .env');
+        return back()->with('error', 'Message service is temporarily unavailable. Please try again later.');
+    }
+
+    try {
+        $fullUrl = rtrim($apiUrl, '/') . '/api/contact';
+
+        $response = \Illuminate\Support\Facades\Http::timeout(10)->withHeaders([
+            'X-API-Key' => $apiKey,
+        ])->post($fullUrl, [
+                    'name' => $request->name,
+                    'email' => $request->email,
+                    'message' => $request->message,
+                    'subject' => 'Inquiry from Soul Healing Site',
+                ]);
+
+        if (!$response->successful()) {
+            \Illuminate\Support\Facades\Log::error('Contact form API error: ' . $response->body());
+            return back()->with('error', 'Unable to send message. Status: ' . $response->status());
+        }
+
+        return back()->with('success', 'Thank you! Your message has been sent. We will get back to you soon.');
+    } catch (\Exception $e) {
+        \Illuminate\Support\Facades\Log::error('Contact form error: ' . $e->getMessage());
+        return back()->with('error', 'Unable to send message. Please try again later.');
+    }
 })->name('contact.submit');
 
 Route::middleware(['auth'])->group(function () {

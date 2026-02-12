@@ -42,7 +42,7 @@ return [
 
     'pou_saas' => [
         'url' => env('POU_SAAS_URL'),
-        'key' => env('POU_SAAS_KEY'),
+        'key' => env('POU_SAAS_API_KEY'),
     ],
 
 ];
