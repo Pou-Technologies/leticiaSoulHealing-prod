@@ -359,6 +359,8 @@
                 return;
             }
 
+            console.log('Fetching CMS content from:', window.cmsConfig.apiUrl);
+
             try {
                 const response = await fetch(`${window.cmsConfig.apiUrl}/api/v1/content/hero`, {
                     headers: {
@@ -371,6 +373,8 @@
 
                 const result = await response.json();
                 if (result.success && result.data) {
+                    // Log image URL for debugging
+                    console.log('Hero Image URL:', result.data.hero_image);
                     renderHero(result.data);
                 }
             } catch (error) {
@@ -418,7 +422,7 @@
             }
 
             // 3. Handle Alignment
-            // Remove ALL alignment classes (including responsive ones) to avoid conflicts
+            // Remove ALL alignment classes (including responsive ones) from MAIN CONTAINER
             textContainer.classList.remove(
                 'text-center', 'text-left', 'text-right',
                 'md:text-center', 'md:text-left', 'md:text-right',
@@ -431,21 +435,30 @@
                 btnContainer.classList.remove(
                     'justify-center', 'justify-start', 'justify-end',
                     'md:justify-center', 'md:justify-start', 'md:justify-end',
-                    'md:justify-start' // Ensure this specific one is gone
+                    'md:justify-start'
                 );
             }
 
+            // Specific handling for the description paragraph to ensure it aligns nicely
+            const descriptionElement = textContainer.querySelector('p.text-gray-600');
+            if (descriptionElement) {
+                descriptionElement.classList.remove('mx-auto', 'md:mx-0'); // Remove default centering/left-align logic
+            }
+
             if (data.hero_alignment === 'center') {
-                textContainer.classList.add('text-center', 'items-center', 'md:text-center');
-                if (btnContainer) btnContainer.classList.add('justify-center', 'md:justify-center');
+                textContainer.classList.add('text-center', 'items-center');
+                if (btnContainer) btnContainer.classList.add('justify-center');
+                if (descriptionElement) descriptionElement.classList.add('mx-auto'); // Center the text block itself
             } else if (data.hero_alignment === 'right') {
-                textContainer.classList.add('text-right', 'items-end', 'md:text-right');
-                // For right align, ensure flex column direction if needed for items
-                if (btnContainer) btnContainer.classList.add('justify-end', 'md:justify-end');
+                textContainer.classList.add('text-right', 'items-end');
+                textContainer.classList.add('flex', 'flex-col');
+                if (btnContainer) btnContainer.classList.add('justify-end');
+                if (descriptionElement) descriptionElement.classList.add('ml-auto', 'mr-0'); // Push text to right
             } else {
                 // Left (Default)
-                textContainer.classList.add('text-left', 'items-start', 'md:text-left');
-                if (btnContainer) btnContainer.classList.add('justify-start', 'md:justify-start');
+                textContainer.classList.add('text-left', 'items-start');
+                if (btnContainer) btnContainer.classList.add('justify-start');
+                if (descriptionElement) descriptionElement.classList.add('mr-auto', 'ml-0'); // Push text to left
             }
         }
     </script>
