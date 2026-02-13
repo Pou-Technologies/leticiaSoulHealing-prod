@@ -2,15 +2,18 @@
 
 @section('content')
     <!-- Hero Section -->
-    <section id="hero-section" class="relative min-h-screen flex items-center pt-24 pb-12 md:pt-0 md:pb-0 overflow-hidden bg-white transition-all duration-700 ease-in-out">
+    <section id="hero-section"
+        class="relative min-h-screen flex items-center pt-24 pb-12 md:pt-0 md:pb-0 overflow-hidden bg-white transition-all duration-700 ease-in-out">
         <!-- Background Decorative Elements -->
         <div class="absolute top-0 right-0 w-2/3 h-full bg-gray-50 rounded-l-[5rem] -z-10 hidden md:block"></div>
 
         <div class="container mx-auto px-6 relative z-10">
             <div class="flex flex-col md:flex-row items-center">
                 <!-- Text Content (Left) -->
-                <div id="hero-text-container" class="w-full md:w-1/2 md:pr-12 text-center md:text-left mb-12 md:mb-0 transition-all duration-500 ease-in-out">
-                    <p id="hero-promotion" class="text-brand-gold uppercase tracking-[0.2em] mb-4 text-sm font-medium animate-fade-in-up">
+                <div id="hero-text-container"
+                    class="w-full md:w-1/2 md:pr-12 text-center md:text-left mb-12 md:mb-0 transition-all duration-500 ease-in-out">
+                    <p id="hero-promotion"
+                        class="text-brand-gold uppercase tracking-[0.2em] mb-4 text-sm font-medium animate-fade-in-up">
                         A sacred path returning home
                     </p>
                     <h1
@@ -41,7 +44,8 @@
                 </div>
 
                 <!-- Hero Image (Right) -->
-                <div id="hero-image-container" class="w-full md:w-1/2 relative md:pl-10 animate-fade-in-left delay-300 transition-all duration-500 ease-in-out">
+                <div id="hero-image-container"
+                    class="w-full md:w-1/2 relative md:pl-10 animate-fade-in-left delay-300 transition-all duration-500 ease-in-out">
                     <div class="relative rounded-[3rem] overflow-hidden shadow-2xl">
                         <img id="hero-image" src="{{ asset('images/hero.jpg') }}" alt="Reclaim Your Inner Light"
                             class="w-full h-auto object-cover transform hover:scale-105 transition duration-700 ease-in-out">
@@ -231,36 +235,36 @@
 
     <!-- Section 5: Testimonials -->
     <section class="py-32 md:py-40 px-6 bg-gray-50" x-data="{
-                                        active: 0,
-                                        testimonials: [
-                                            {
-                                                text: 'I am a mother and a professional. After seeing Leticia for over 13 years, I always go back to her because her assertive intuitive, gentle spiritual and holistic approach which has helped me immensely through out my personal and professional path.',
-                                                author: 'Carmen B.'
+                                            active: 0,
+                                            testimonials: [
+                                                {
+                                                    text: 'I am a mother and a professional. After seeing Leticia for over 13 years, I always go back to her because her assertive intuitive, gentle spiritual and holistic approach which has helped me immensely through out my personal and professional path.',
+                                                    author: 'Carmen B.'
+                                                },
+                                                {
+                                                    text: 'If you want a beautiful soul to guide you, Leticia is your guide.',
+                                                    author: 'Patrick ND.'
+                                                },
+                                                {
+                                                    text: 'Thank you, Leticia, because your beautiful therapy brought me out of my comfort zone which led me to resolve a situation that needed my attention regarding my marriage. I felt like I was crossing a threshold into a peaceful and clear mind to decide what I really wanted to do.',
+                                                    author: 'Mary Z.'
+                                                },
+                                                {
+                                                    text: 'At Soul Healing with Leticia you can gently and intuitively be guided into your soul (ah!, I guess hence the name). Once there, she also provides the environment for healing to happen, every time the issue at hand that needs it most. Thank you Leticia for your most needed and important service.',
+                                                    author: 'Leal E.'
+                                                },
+                                                {
+                                                    text: 'Leticia, thank you so much! Reiki and Reflexology have been wonderful therapies. You helped to balance my digestion problems and, most important to find inner peace and calm. I think everybody should have a session for indulging the mind and body.',
+                                                    author: 'Maria.'
+                                                }
+                                            ],
+                                            next() {
+                                                this.active = (this.active + 1) % this.testimonials.length;
                                             },
-                                            {
-                                                text: 'If you want a beautiful soul to guide you, Leticia is your guide.',
-                                                author: 'Patrick ND.'
-                                            },
-                                            {
-                                                text: 'Thank you, Leticia, because your beautiful therapy brought me out of my comfort zone which led me to resolve a situation that needed my attention regarding my marriage. I felt like I was crossing a threshold into a peaceful and clear mind to decide what I really wanted to do.',
-                                                author: 'Mary Z.'
-                                            },
-                                            {
-                                                text: 'At Soul Healing with Leticia you can gently and intuitively be guided into your soul (ah!, I guess hence the name). Once there, she also provides the environment for healing to happen, every time the issue at hand that needs it most. Thank you Leticia for your most needed and important service.',
-                                                author: 'Leal E.'
-                                            },
-                                            {
-                                                text: 'Leticia, thank you so much! Reiki and Reflexology have been wonderful therapies. You helped to balance my digestion problems and, most important to find inner peace and calm. I think everybody should have a session for indulging the mind and body.',
-                                                author: 'Maria.'
+                                            prev() {
+                                                this.active = (this.active - 1 + this.testimonials.length) % this.testimonials.length;
                                             }
-                                        ],
-                                        next() {
-                                            this.active = (this.active + 1) % this.testimonials.length;
-                                        },
-                                        prev() {
-                                            this.active = (this.active - 1 + this.testimonials.length) % this.testimonials.length;
-                                        }
-                                    }">
+                                        }">
         <div class="container mx-auto max-w-6xl">
             <div class="text-center mb-16">
                 <h2 class="text-3xl md:text-4xl font-light text-gray-900 mb-4 italic font-serif">Voices of Healing</h2>
@@ -408,32 +412,39 @@
                 // Split Layout (Default)
                 if (imageContainer) imageContainer.style.display = 'block';
                 heroSection.style.backgroundImage = '';
+                // Restore split layout classes
                 textContainer.classList.add('md:w-1/2', 'md:pr-12');
                 textContainer.classList.remove('w-full', 'max-w-4xl', 'mx-auto');
             }
 
             // 3. Handle Alignment
-            textContainer.classList.remove('text-center', 'text-left', 'text-right', 'items-center', 'items-start', 'items-end');
+            // Remove ALL alignment classes (including responsive ones) to avoid conflicts
+            textContainer.classList.remove(
+                'text-center', 'text-left', 'text-right',
+                'md:text-center', 'md:text-left', 'md:text-right',
+                'items-center', 'items-start', 'items-end'
+            );
 
             // Flex column alignment (for buttons inside)
             const btnContainer = textContainer.querySelector('div.flex.flex-col');
             if (btnContainer) {
-                btnContainer.classList.remove('justify-center', 'justify-start', 'justify-end', 'md:justify-start');
+                btnContainer.classList.remove(
+                    'justify-center', 'justify-start', 'justify-end',
+                    'md:justify-center', 'md:justify-start', 'md:justify-end',
+                    'md:justify-start' // Ensure this specific one is gone
+                );
             }
 
             if (data.hero_alignment === 'center') {
-                textContainer.classList.add('text-center', 'items-center');
-                if (btnContainer) btnContainer.classList.add('justify-center');
+                textContainer.classList.add('text-center', 'items-center', 'md:text-center');
+                if (btnContainer) btnContainer.classList.add('justify-center', 'md:justify-center');
             } else if (data.hero_alignment === 'right') {
-                textContainer.classList.add('text-right', 'items-end');
-                // For right align, we might need flex-column item alignment
-                textContainer.classList.add('flex', 'flex-col');
-                if (btnContainer) btnContainer.classList.add('justify-end');
+                textContainer.classList.add('text-right', 'items-end', 'md:text-right');
+                // For right align, ensure flex column direction if needed for items
+                if (btnContainer) btnContainer.classList.add('justify-end', 'md:justify-end');
             } else {
                 // Left (Default)
-                textContainer.classList.add('text-left', 'items-start');
-                textContainer.classList.remove('md:text-left'); // Remove hardcoded md:text-left if exists to allow full control
-                textContainer.classList.add('md:text-left'); // Re-add for safety or just rely on 'text-left'
+                textContainer.classList.add('text-left', 'items-start', 'md:text-left');
                 if (btnContainer) btnContainer.classList.add('justify-start', 'md:justify-start');
             }
         }
