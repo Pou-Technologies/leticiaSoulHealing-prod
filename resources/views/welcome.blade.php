@@ -241,36 +241,36 @@
 
     <!-- Section 5: Testimonials -->
     <section class="py-32 md:py-40 px-6 bg-gray-50" x-data="{
-                                                active: 0,
-                                                testimonials: [
-                                                    {
-                                                        text: 'I am a mother and a professional. After seeing Leticia for over 13 years, I always go back to her because her assertive intuitive, gentle spiritual and holistic approach which has helped me immensely through out my personal and professional path.',
-                                                        author: 'Carmen B.'
+                                                    active: 0,
+                                                    testimonials: [
+                                                        {
+                                                            text: 'I am a mother and a professional. After seeing Leticia for over 13 years, I always go back to her because her assertive intuitive, gentle spiritual and holistic approach which has helped me immensely through out my personal and professional path.',
+                                                            author: 'Carmen B.'
+                                                        },
+                                                        {
+                                                            text: 'If you want a beautiful soul to guide you, Leticia is your guide.',
+                                                            author: 'Patrick ND.'
+                                                        },
+                                                        {
+                                                            text: 'Thank you, Leticia, because your beautiful therapy brought me out of my comfort zone which led me to resolve a situation that needed my attention regarding my marriage. I felt like I was crossing a threshold into a peaceful and clear mind to decide what I really wanted to do.',
+                                                            author: 'Mary Z.'
+                                                        },
+                                                        {
+                                                            text: 'At Soul Healing with Leticia you can gently and intuitively be guided into your soul (ah!, I guess hence the name). Once there, she also provides the environment for healing to happen, every time the issue at hand that needs it most. Thank you Leticia for your most needed and important service.',
+                                                            author: 'Leal E.'
+                                                        },
+                                                        {
+                                                            text: 'Leticia, thank you so much! Reiki and Reflexology have been wonderful therapies. You helped to balance my digestion problems and, most important to find inner peace and calm. I think everybody should have a session for indulging the mind and body.',
+                                                            author: 'Maria.'
+                                                        }
+                                                    ],
+                                                    next() {
+                                                        this.active = (this.active + 1) % this.testimonials.length;
                                                     },
-                                                    {
-                                                        text: 'If you want a beautiful soul to guide you, Leticia is your guide.',
-                                                        author: 'Patrick ND.'
-                                                    },
-                                                    {
-                                                        text: 'Thank you, Leticia, because your beautiful therapy brought me out of my comfort zone which led me to resolve a situation that needed my attention regarding my marriage. I felt like I was crossing a threshold into a peaceful and clear mind to decide what I really wanted to do.',
-                                                        author: 'Mary Z.'
-                                                    },
-                                                    {
-                                                        text: 'At Soul Healing with Leticia you can gently and intuitively be guided into your soul (ah!, I guess hence the name). Once there, she also provides the environment for healing to happen, every time the issue at hand that needs it most. Thank you Leticia for your most needed and important service.',
-                                                        author: 'Leal E.'
-                                                    },
-                                                    {
-                                                        text: 'Leticia, thank you so much! Reiki and Reflexology have been wonderful therapies. You helped to balance my digestion problems and, most important to find inner peace and calm. I think everybody should have a session for indulging the mind and body.',
-                                                        author: 'Maria.'
+                                                    prev() {
+                                                        this.active = (this.active - 1 + this.testimonials.length) % this.testimonials.length;
                                                     }
-                                                ],
-                                                next() {
-                                                    this.active = (this.active + 1) % this.testimonials.length;
-                                                },
-                                                prev() {
-                                                    this.active = (this.active - 1 + this.testimonials.length) % this.testimonials.length;
-                                                }
-                                            }">
+                                                }">
         <div class="container mx-auto max-w-6xl">
             <div class="text-center mb-16">
                 <h2 class="text-3xl md:text-4xl font-light text-gray-900 mb-4 italic font-serif">Voices of Healing</h2>
@@ -394,6 +394,10 @@
             // Update hero image
             if (data.hero_image && heroImage) {
                 heroImage.src = data.hero_image;
+                heroImage.onerror = function () {
+                    console.warn('Hero image failed to load, falling back to default.');
+                    this.src = '{{ asset("images/hero.jpg") }}';
+                };
             }
 
             // Update title (preserve styling by setting innerHTML)
