@@ -1,6 +1,12 @@
 @extends('layouts.web')
 
 @section('content')
+    <!-- Promotion Banner (controlled from CMS) -->
+    <div id="hero-promo-banner" class="hidden w-full text-center py-3 px-6 text-sm font-semibold tracking-wide"
+        style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+        <span id="hero-promo-banner-text"></span>
+    </div>
+
     <!-- Hero Section -->
     <section id="hero-section"
         class="relative min-h-screen flex items-center pt-24 pb-12 md:pt-0 md:pb-0 overflow-hidden bg-white transition-all duration-700 ease-in-out">
@@ -12,11 +18,11 @@
                 <!-- Text Content (Left) -->
                 <div id="hero-text-container"
                     class="w-full md:w-1/2 md:pr-12 text-center md:text-left mb-12 md:mb-0 transition-all duration-500 ease-in-out">
-                    <p id="hero-promotion"
+                    <p id="hero-subtitle"
                         class="text-brand-gold uppercase tracking-[0.2em] mb-4 text-sm font-medium animate-fade-in-up">
                         A sacred path returning home
                     </p>
-                    <h1
+                    <h1 id="hero-title"
                         class="text-5xl md:text-6xl lg:text-7xl font-light text-gray-900 leading-tight mb-8 font-serif animate-fade-in-up delay-100">
                         Reclaim Your <br> <span class="italic text-brand-teal">Inner Light</span>
                     </h1>
@@ -235,36 +241,36 @@
 
     <!-- Section 5: Testimonials -->
     <section class="py-32 md:py-40 px-6 bg-gray-50" x-data="{
-                                            active: 0,
-                                            testimonials: [
-                                                {
-                                                    text: 'I am a mother and a professional. After seeing Leticia for over 13 years, I always go back to her because her assertive intuitive, gentle spiritual and holistic approach which has helped me immensely through out my personal and professional path.',
-                                                    author: 'Carmen B.'
+                                                active: 0,
+                                                testimonials: [
+                                                    {
+                                                        text: 'I am a mother and a professional. After seeing Leticia for over 13 years, I always go back to her because her assertive intuitive, gentle spiritual and holistic approach which has helped me immensely through out my personal and professional path.',
+                                                        author: 'Carmen B.'
+                                                    },
+                                                    {
+                                                        text: 'If you want a beautiful soul to guide you, Leticia is your guide.',
+                                                        author: 'Patrick ND.'
+                                                    },
+                                                    {
+                                                        text: 'Thank you, Leticia, because your beautiful therapy brought me out of my comfort zone which led me to resolve a situation that needed my attention regarding my marriage. I felt like I was crossing a threshold into a peaceful and clear mind to decide what I really wanted to do.',
+                                                        author: 'Mary Z.'
+                                                    },
+                                                    {
+                                                        text: 'At Soul Healing with Leticia you can gently and intuitively be guided into your soul (ah!, I guess hence the name). Once there, she also provides the environment for healing to happen, every time the issue at hand that needs it most. Thank you Leticia for your most needed and important service.',
+                                                        author: 'Leal E.'
+                                                    },
+                                                    {
+                                                        text: 'Leticia, thank you so much! Reiki and Reflexology have been wonderful therapies. You helped to balance my digestion problems and, most important to find inner peace and calm. I think everybody should have a session for indulging the mind and body.',
+                                                        author: 'Maria.'
+                                                    }
+                                                ],
+                                                next() {
+                                                    this.active = (this.active + 1) % this.testimonials.length;
                                                 },
-                                                {
-                                                    text: 'If you want a beautiful soul to guide you, Leticia is your guide.',
-                                                    author: 'Patrick ND.'
-                                                },
-                                                {
-                                                    text: 'Thank you, Leticia, because your beautiful therapy brought me out of my comfort zone which led me to resolve a situation that needed my attention regarding my marriage. I felt like I was crossing a threshold into a peaceful and clear mind to decide what I really wanted to do.',
-                                                    author: 'Mary Z.'
-                                                },
-                                                {
-                                                    text: 'At Soul Healing with Leticia you can gently and intuitively be guided into your soul (ah!, I guess hence the name). Once there, she also provides the environment for healing to happen, every time the issue at hand that needs it most. Thank you Leticia for your most needed and important service.',
-                                                    author: 'Leal E.'
-                                                },
-                                                {
-                                                    text: 'Leticia, thank you so much! Reiki and Reflexology have been wonderful therapies. You helped to balance my digestion problems and, most important to find inner peace and calm. I think everybody should have a session for indulging the mind and body.',
-                                                    author: 'Maria.'
+                                                prev() {
+                                                    this.active = (this.active - 1 + this.testimonials.length) % this.testimonials.length;
                                                 }
-                                            ],
-                                            next() {
-                                                this.active = (this.active + 1) % this.testimonials.length;
-                                            },
-                                            prev() {
-                                                this.active = (this.active - 1 + this.testimonials.length) % this.testimonials.length;
-                                            }
-                                        }">
+                                            }">
         <div class="container mx-auto max-w-6xl">
             <div class="text-center mb-16">
                 <h2 class="text-3xl md:text-4xl font-light text-gray-900 mb-4 italic font-serif">Voices of Healing</h2>
@@ -359,8 +365,6 @@
                 return;
             }
 
-            console.log('Fetching CMS content from:', window.cmsConfig.apiUrl);
-
             try {
                 const response = await fetch(`${window.cmsConfig.apiUrl}/api/v1/content/hero`, {
                     headers: {
@@ -373,8 +377,6 @@
 
                 const result = await response.json();
                 if (result.success && result.data) {
-                    // Log image URL for debugging
-                    console.log('Hero Image URL:', result.data.hero_image);
                     renderHero(result.data);
                 }
             } catch (error) {
@@ -383,82 +385,31 @@
         }
 
         function renderHero(data) {
-            const heroSection = document.getElementById('hero-section');
-            const textContainer = document.getElementById('hero-text-container');
-            const imageContainer = document.getElementById('hero-image-container');
             const heroImage = document.getElementById('hero-image');
-            const promotionText = document.getElementById('hero-promotion');
+            const heroTitle = document.getElementById('hero-title');
+            const heroSubtitle = document.getElementById('hero-subtitle');
+            const promoBanner = document.getElementById('hero-promo-banner');
+            const promoBannerText = document.getElementById('hero-promo-banner-text');
 
-            // 1. Update Content
+            // Update hero image
             if (data.hero_image && heroImage) {
                 heroImage.src = data.hero_image;
             }
 
-            if (data.promotion_text && promotionText) {
-                promotionText.innerText = data.promotion_text;
+            // Update title (preserve styling by setting innerHTML)
+            if (data.hero_title && heroTitle) {
+                heroTitle.innerHTML = data.hero_title;
             }
 
-            // 2. Handle Layout
-            if (data.hero_layout === 'background' && data.hero_image) {
-                // Background Layout
-                if (imageContainer) imageContainer.style.display = 'none';
-
-                heroSection.style.backgroundImage = `url('${data.hero_image}')`;
-                heroSection.style.backgroundSize = 'cover';
-                heroSection.style.backgroundPosition = 'center';
-                heroSection.classList.add('bg-black/50', 'bg-blend-overlay'); // Darken for readability
-
-                // Adjust Text Container for full width
-                textContainer.classList.remove('md:w-1/2', 'md:pr-12');
-                textContainer.classList.add('w-full', 'max-w-4xl', 'mx-auto');
-
-            } else {
-                // Split Layout (Default)
-                if (imageContainer) imageContainer.style.display = 'block';
-                heroSection.style.backgroundImage = '';
-                // Restore split layout classes
-                textContainer.classList.add('md:w-1/2', 'md:pr-12');
-                textContainer.classList.remove('w-full', 'max-w-4xl', 'mx-auto');
+            // Update subtitle
+            if (data.hero_subtitle && heroSubtitle) {
+                heroSubtitle.textContent = data.hero_subtitle;
             }
 
-            // 3. Handle Alignment
-            // Remove ALL alignment classes (including responsive ones) from MAIN CONTAINER
-            textContainer.classList.remove(
-                'text-center', 'text-left', 'text-right',
-                'md:text-center', 'md:text-left', 'md:text-right',
-                'items-center', 'items-start', 'items-end'
-            );
-
-            // Flex column alignment (for buttons inside)
-            const btnContainer = textContainer.querySelector('div.flex.flex-col');
-            if (btnContainer) {
-                btnContainer.classList.remove(
-                    'justify-center', 'justify-start', 'justify-end',
-                    'md:justify-center', 'md:justify-start', 'md:justify-end',
-                    'md:justify-start'
-                );
-            }
-
-            // Specific handling for the description paragraph to ensure it aligns nicely
-            const descriptionElement = textContainer.querySelector('p.text-gray-600');
-            if (descriptionElement) {
-                descriptionElement.classList.remove('mx-auto', 'md:mx-0'); // Remove default centering/left-align logic
-            }
-
-            if (data.hero_alignment === 'center') {
-                textContainer.classList.add('text-center', 'items-center');
-                if (btnContainer) btnContainer.classList.add('justify-center');
-                if (descriptionElement) descriptionElement.classList.add('mx-auto'); // Center the text block itself
-            } else if (data.hero_alignment === 'right') {
-                textContainer.classList.add('text-right', 'items-end');
-                textContainer.classList.add('flex', 'flex-col');
-                if (btnContainer) btnContainer.classList.add('justify-end');
-                if (descriptionElement) descriptionElement.classList.add('ml-auto', 'mr-0'); // Push text to right
-            } else {
-                // Left (Default)
-                textContainer.classList.add('text-left', 'items-start');
-                if (btnContainer) btnContainer.classList.add('justify-start');
-                if (descriptionElement) descriptionElement.classList.add('mr-auto', 'ml-0'); // Push text to left
+            // Show/hide promotion banner
+            if (data.promotion_enabled && data.promotion_text && promoBanner && promoBannerText) {
+                promoBannerText.textContent = data.promotion_text;
+                promoBanner.classList.remove('hidden');
             }
         }
     </script>
